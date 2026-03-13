@@ -1,0 +1,241 @@
+{
+  "name": "ue-python",
+  "displayName": "Unreal Engine Python",
+  "publisher": "NilsSoderman",
+  "description": "Tools to assist when writing Python code for Unreal Engine",
+  "version": "1.9.0",
+  "categories": [
+    "Other",
+    "Debuggers"
+  ],
+  "keywords": [
+    "python",
+    "unreal",
+    "engine",
+    "game",
+    "epic games",
+    "debug",
+    "ue5",
+    "ue4"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "category": "Unreal Python",
+        "title": "Execute",
+        "command": "ue-python.execute",
+        "enablement": "editorLangId==python"
+      },
+      {
+        "category": "Unreal Python",
+        "title": "Attach",
+        "command": "ue-python.attach"
+      },
+      {
+        "category": "Unreal Python",
+        "title": "Setup Code Completion",
+        "command": "ue-python.setupCodeCompletion"
+      },
+      {
+        "category": "Unreal Python",
+        "title": "Open Documentation",
+        "command": "ue-python.openDocumentation"
+      },
+      {
+        "category": "Unreal Python",
+        "title": "Select Instance",
+        "command": "ue-python.selectInstance"
+      },
+      {
+        "category": "Unreal Python",
+        "title": "Reload Modules",
+        "command": "ue-python.reloadModules"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ue-python.execute",
+        "key": "ctrl+enter"
+      }
+    ],
+    "configuration": [
+      {
+        "properties": {
+          "ue-python.strictPort": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "Prevent this extension from automatically finding a free port if a port assigned in the config is busy.",
+            "scope": "resource"
+          },
+          "ue-python.environment.addWorkspaceToPath": {
+            "type": "boolean",
+            "default": true,
+            "description": "Add the workspace folder(s) to the Python path when connecting to Unreal Engine",
+            "scope": "resource"
+          }
+        }
+      },
+      {
+        "title": "Attach",
+        "properties": {
+          "ue-python.attach.port": {
+            "type": "number",
+            "default": 6868,
+            "description": "Port to use for the debugpy server when attaching VS Code to Unreal",
+            "scope": "resource"
+          },
+          "ue-python.attach.justMyCode": {
+            "type": "boolean",
+            "default": true,
+            "description": "Restricts debugging to user-written code only. Set to false to also enable debugging of standard library functions.",
+            "scope": "resource"
+          },
+          "ue-python.attach.type": {
+            "type":"string",
+            "enum": [
+              "debugpy",
+              "python"
+            ],
+            "default": "debugpy",
+            "description": "The attach `type` to use. 'python' has been deprecated and will be removed in a future version",
+            "scope": "resource"
+          }
+        }
+      },
+      {
+        "title": "Execute",
+        "properties": {
+          "ue-python.execute.showOutput": {
+            "type": "boolean",
+            "default": true,
+            "description": "Display the output log when something is executed",
+            "scope": "resource"
+          },
+          "ue-python.execute.clearOutput": {
+            "type": "boolean",
+            "default": false,
+            "description": "Clear output log each time somethings new is executed",
+            "scope": "resource"
+          },
+          "ue-python.execute.name": {
+            "type": "string",
+            "default": "__main__",
+            "description": "The value for the Python variable `__name__` whenever executing code through VS Code",
+            "scope": "resource"
+          },
+          "ue-python.execute.unattended": {
+            "type": "boolean",
+            "default": false,
+            "description": "Execute code with the `-unattended` flag, suppressing some UI that requires user input, such as message boxes",
+            "scope": "resource"
+          }
+        }
+      },
+      {
+        "title": "Remote Execution Server",
+        "properties": {
+          "ue-python.remote.multicastGroupEndpoint": {
+            "type": "string",
+            "default": "239.0.0.1:6766",
+            "markdownDescription": "The multicast group endpoint in the format of \"IP:PORT\" _(must match the \"Multicast Group Endpoint\" setting in the Python plugin)_",
+            "scope": "resource",
+            "order": 0,
+            "pattern": "^[0-9.]+:[0-9]+$"
+          },
+          "ue-python.remote.multicastBindAddress": {
+            "type": "string",
+            "default": "127.0.0.1",
+            "markdownDescription": "The adapter address that the UDP multicast socket should bind to, or 0.0.0.0 to bind to all adapters _(must match the \"Multicast Bind Address\" setting in the Python plugin)_",
+            "scope": "resource",
+            "order": 1,
+            "pattern": "^[0-9.]+$"
+          },
+          "ue-python.remote.multicastTTL": {
+            "type": "number",
+            "default": 0,
+            "markdownDescription": "Multicast TTL _(0 is limited to the local host, 1 is limited to the local subnet)_",
+            "scope": "resource",
+            "order": 2
+          },
+          "ue-python.remote.commandEndpoint": {
+            "type": "string",
+            "default": "127.0.0.1:6776",
+            "markdownDescription": "The endpoint for the TCP command connection hosted by this client _(that the remote client will connect to)_",
+            "scope": "resource",
+            "order": 3,
+            "pattern": "^[0-9.]+:[0-9]+$"
+          },
+          "ue-python.remote.timeout": {
+            "type": "number",
+            "default": 3000,
+            "markdownDescription": "Timeout in milliseconds for an Unreal Engine instance to respond when establishing a connection",
+            "scope": "resource",
+            "order": 4
+          }
+        }
+      }
+    ],
+    "icons": {
+      "unreal-engine": {
+        "description": "Unreal Engine Icon",
+        "default": {
+          "fontPath": "media/icon-font/ue-icon-font.woff2",
+          "fontCharacter": "\\E800"
+        }
+      }
+    }
+  },
+  "galleryBanner": {
+    "color": "#0f0f0f",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nils-soderman/vscode-unreal-python"
+  },
+  "bugs": {
+    "url": "https://github.com/nils-soderman/vscode-unreal-python/issues"
+  },
+  "author": {
+    "name": "Nils Söderman",
+    "url": "https://nilssoderman.com"
+  },
+  "qna": "marketplace",
+  "license": "SEE LICENSE IN LICENSE",
+  "icon": "media/icon.png",
+  "scripts": {
+    "postinstall": "cd ./webview-ui && npm install",
+    "vscode:prepublish": "npm run build-webview && npm run esbuild-base -- --minify",
+    "build-webview": "npm run build --prefix webview-ui",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "watch": "npm run esbuild-base -- --sourcemap --watch",
+    "lint": "eslint src --ext ts",
+    "test": "tsc -p ./ && vscode-test",
+    "watch-test": "tsc -p ./ --watch"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/sinon": "^17.0.4",
+    "@types/tcp-port-used": "^1.0.4",
+    "@types/vscode": "^1.91.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.26.0",
+    "mocha": "^11.2.2",
+    "sinon": "^21.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "tcp-port-used": "^1.0.2",
+    "unreal-remote-execution": "^1.0.0"
+  },
+  "engines": {
+    "vscode": "^1.91.0"
+  }
+}

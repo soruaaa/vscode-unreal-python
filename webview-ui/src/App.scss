@@ -1,0 +1,38 @@
+.hidden {
+    display: none;
+}
+
+.link {
+    color: var(--vscode-textLink-foreground);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: var(--vscode-textLink-activeForeground);
+    text-decoration: underline;
+}
+
+.link:active {
+    color: inherit;
+    text-decoration: underline;
+}
+
+html, body, #root, .App {
+    height: 100%;
+}
+
+.vscode-header {
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    width: 100%;
+    background-color: var(--vscode-breadcrumb-background);
+    padding-left: 11px;
+}
+
+.main-content {
+    height: calc(100% - 22px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
